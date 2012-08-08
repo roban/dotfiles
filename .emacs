@@ -7,6 +7,7 @@
  '(display-time-mode t)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
+ '(tab-width 2)
  '(text-mode-hook (quote (turn-on-auto-fill (lambda nil (auto-fill-mode 1) (flyspell-mode 1) (setq-default indent-tabs-mode 1))))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -41,12 +42,25 @@
 (global-set-key [f10]  'find-file-other-frame)
 (global-set-key [f9]  'switch-to-buffer)
 
-;; spaces instead of tabs, and set tab width
-;(setq-default indent-tabs-mode nil)
+
+;; spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+(setq indent-tabs-mode nil)
+; tabs instead of spaces in ruby
+(setq ruby-indent-tabs-mode 1)
+(setq ruby-indent-level 2)
+; set tab width
 (setq tab-width 2)
+(setq default-tab-width 2)
 (setq tab-interval 2)
 ;; narrow tabs for perl
 (setq perl-indent-level 2)
+
+(add-hook 'python-mode-hook
+      (lambda ()
+        (setq indent-tabs-mode t)
+        (setq tab-width 2)
+        (setq python-indent 2)))
 
 (setq latex-mode-hook                  ; do auto fill mode in text mode
       '(lambda () 
@@ -87,3 +101,4 @@
 (defun word-count nil "Count words in buffer" (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
 
+(put 'downcase-region 'disabled nil)
