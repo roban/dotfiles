@@ -102,3 +102,4 @@
   (shell-command-on-region (point-min) (point-max) "wc -w"))
 
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
