@@ -7,14 +7,19 @@
  '(display-time-mode t)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
- '(tab-width 2)
- '(text-mode-hook (quote (turn-on-auto-fill (lambda nil (auto-fill-mode 1) (flyspell-mode 1) (setq-default indent-tabs-mode 1))))))
+ '(tab-width 4)
+ '(text-mode-hook (quote (turn-on-auto-fill (lambda nil (auto-fill-mode 1) (flyspell-mode 1) (setq-default indent-tabs-mode 0))))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+
+(add-to-list 'initial-frame-alist `(fullscreen . fullheight))
+(add-to-list 'default-frame-alist `(fullscreen . fullheight))
+
+(setq x-select-enable-clipboard t)
 
 (show-paren-mode 1) 
 (column-number-mode 1)
@@ -46,21 +51,27 @@
 ;; spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 (setq indent-tabs-mode nil)
-; tabs instead of spaces in ruby
-(setq ruby-indent-tabs-mode 1)
-(setq ruby-indent-level 2)
+; spaces instead of spaces in ruby
+(setq ruby-indent-tabs-mode nil)
+(setq ruby-indent-level 4)
 ; set tab width
-(setq tab-width 2)
-(setq default-tab-width 2)
-(setq tab-interval 2)
+(setq tab-width 4)
+(setq default-tab-width 4)
+(setq tab-interval 4)
 ;; narrow tabs for perl
 (setq perl-indent-level 2)
 
 (add-hook 'python-mode-hook
       (lambda ()
-        (setq indent-tabs-mode t)
-        (setq tab-width 2)
-        (setq python-indent 2)))
+        (setq indent-tabs-mode nil)
+        (setq tab-width 4)
+        (setq python-indent 4)
+        (setq python-indent-level 4)
+        ))
+
+(add-hook 'js-mode-hook
+          (lambda ()
+            (setq js-indent-level 2)))
 
 (setq latex-mode-hook                  ; do auto fill mode in text mode
       '(lambda () 
@@ -103,3 +114,6 @@
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+;json
+(setq auto-mode-alist (cons '("\\.json\\'" . js-mode) auto-mode-alist))
