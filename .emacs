@@ -7,14 +7,14 @@
  '(display-time-mode t)
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
- '(tab-width 4)
+ '(tab-width 2)
  '(text-mode-hook (quote (turn-on-auto-fill (lambda nil (auto-fill-mode 1) (flyspell-mode 1) (setq-default indent-tabs-mode 0))))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+;; (custom-set-faces
+;;   ;; custom-set-faces was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
 
 (add-to-list 'load-path "~/elisp")
 
@@ -38,8 +38,7 @@
 (global-set-key [f1] 'undo)
 (global-set-key [f2] 'goto-line)
 (global-set-key [f3] 'delete-other-windows)
-(fset 'macro-kill-current-buffer
-   [?\C-X ?K return])
+(fset 'macro-kill-current-buffer [?\C-X ?K return])
 (global-set-key [f4] 'macro-kill-current-buffer)
 
 (global-set-key [f6]  'call-last-kbd-macro)
@@ -50,6 +49,21 @@
 (global-set-key [f9]  'switch-to-buffer)
 (global-set-key [XF86Back]  'previous-buffer)
 (global-set-key [XF86Forward]  'next-buffer)
+(global-set-key [(control super down)] `maximize-frame-vertically)
+(global-set-key [(control super up)] `toggle-max-frame-vertically)
+(global-set-key [s-up] `backward-paragraph)
+(global-set-key [s-down] `forward-paragraph)
+(global-set-key [M-up] `backward-paragraph)
+(global-set-key [M-down] `forward-paragraph)
+(global-set-key [s-left] `backward-word)
+(global-set-key [s-right] `forward-word)
+(global-set-key [M-left] `backward-sexp)
+(global-set-key [M-right] `forward-sexp)
+(global-set-key [s-home] `beginning-of-buffer)
+(global-set-key [s-end] `end-of-buffer)
+(global-set-key [C-s-left] `beginning-of-buffer)
+(global-set-key [C-s-right] `end-of-buffer)
+
 
 
 ;; spaces instead of tabs
@@ -57,20 +71,20 @@
 (setq indent-tabs-mode nil)
 ; spaces instead of spaces in ruby
 (setq ruby-indent-tabs-mode nil)
-(setq ruby-indent-level 4)
+(setq ruby-indent-level 2)
 ; set tab width
-(setq tab-width 4)
-(setq default-tab-width 4)
-(setq tab-interval 4)
+(setq tab-width 2)
+(setq default-tab-width 2)
+(setq tab-interval 2)
 ;; narrow tabs for perl
 (setq perl-indent-level 2)
 
 (add-hook 'python-mode-hook
       (lambda ()
         (setq indent-tabs-mode nil)
-        (setq tab-width 4)
-        (setq python-indent 4)
-        (setq python-indent-level 4)
+        (setq tab-width 2)
+        (setq python-indent 2)
+        (setq python-indent-level 2)
 		(setq auto-fill-mode 0)
         ))
 
@@ -123,3 +137,14 @@
 ;json
 (setq auto-mode-alist (cons '("\\.json\\'" . js-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.jsons\\'" . js-mode) auto-mode-alist))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+
+(add-to-list 'load-path "elisp/scala-mode2/")
+(require 'scala-mode2)
